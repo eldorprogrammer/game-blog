@@ -1,0 +1,129 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Game Warrior Template</title>
+	
+
+</head>
+<body>
+
+	{% block mains %}
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	{% comment %} 
+	bu yerda header qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/header.html' with users=users %}
+	
+
+
+
+	{% comment %} 
+	bu yerda news qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/news.html' with categories=categories %}
+
+	<!-- Tournaments section -->
+	
+	<section class="tournaments-section spad">
+		
+		<div class="container">
+			
+			
+			
+			<div class="row">
+				{% if user.is_staff %}
+				{% for turnir in turnirs %}
+				<div class="col-md-6">
+					{% comment %} <form method="GET"  action="{% url 'turnirlar' turnir.id %}">
+						<button type="submit" class="tournament-title">Tournaments</button>
+					</form> {% endcomment %}
+					<div class="tournament-item mb-4 mb-lg-0">
+						<form method="GET"  action="{% url 'turnirdelet' turnir.id %}">
+							<button type="submit" class="ti-notic">Premium Tournament</button>
+						</form>
+						<div class="ti-content">
+							<div class="ti-thumb set-bg" data-setbg="{{ turnir.image.url }}"></div>
+							<div class="ti-text">
+								<h4>{{turnir.turnirNomi}}</h4>
+								<ul>
+									<li><span>Tournament Beggins:</span> {{turnir.startDate}}</li>
+									<li><span>Tounament Ends:</span>{{turnir.endDate}}</li>
+									<li><span>Participants:</span>{{turnir.participants_age}}  yoshlilar</li>
+									<li><span>Tournament Author:</span>{{turnir.turnirhomiysi}}</li>
+								</ul>
+								<p><span>Prizes:</span>  1-o'rin : {{turnir.priz1}}</p>
+								<p><span>Prizes:</span>  2-o'rin : {{turnir.priz2}}</p>
+								<p><span>Prizes:</span>  3-o'rin : {{turnir.priz3}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% comment %} {% endif %} {% endcomment %}
+				{% endfor %}
+				{% else %}
+				{% for turnir in turnirs %}
+				{% if user.username == turnir.user.username %}
+				<div class="col-md-6">
+					{% comment %} <form method="GET"  action="{% url 'turnirlar' turnir.id %}">
+						<button type="submit" class="tournament-title">Tournaments</button>
+					</form> {% endcomment %}
+					<div class="tournament-item mb-4 mb-lg-0">
+						<form method="GET"  action="{% url 'turnirdelet' turnir.id %}">
+							<button type="submit" class="ti-notic">Premium Tournament</button>
+						</form>
+						{% comment %} <div class="ti-notic">Premium Tournament</div> {% endcomment %}
+						<div class="ti-content">
+							<div class="ti-thumb set-bg" data-setbg="{{ turnir.image.url }}"></div>
+							<div class="ti-text">
+								<h4>{{turnir.turnirNomi}}</h4>
+								<ul>
+									<li><span>Tournament Beggins:</span> {{turnir.startDate}}</li>
+									<li><span>Tounament Ends:</span>{{turnir.endDate}}</li>
+									<li><span>Participants:</span>{{turnir.participants_age}}  yoshlilar</li>
+									<li><span>Tournament Author:</span>{{turnir.turnirhomiysi}}</li>
+								</ul>
+								<p><span>Prizes:</span>  1-o'rin : {{turnir.priz1}}</p>
+								<p><span>Prizes:</span>  2-o'rin : {{turnir.priz2}}</p>
+								<p><span>Prizes:</span>  3-o'rin : {{turnir.priz3}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% endif %}
+				{% comment %} {% endfor %} {% endcomment %}
+			</div>
+			
+		</div>
+		
+	</section>
+	
+	
+	<!-- Tournaments section bg -->
+
+
+	
+
+	{% comment %} 
+	bu yerda footer qismi bor edi
+	{% endcomment %}
+
+
+	{% endblock mains %}
+	<!-- Footer section end -->
+
+
+	{% comment %} 
+	bu yerda js qismi bor edi
+	{% endcomment %}
+    </body>
+</html>

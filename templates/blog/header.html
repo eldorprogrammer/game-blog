@@ -1,0 +1,76 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<style>
+		.box{
+			 color: red;
+		}
+	</style>
+</head>
+<body>
+    <!-- Header section -->
+	<header class="header-section">
+		<div class="container">
+			<!-- logo -->
+			<a class="site-logo" href="{% url 'index' %}">
+				<img src="{% static 'img/logo.pnj' %}" alt="">
+			</a>
+
+
+			
+			{% comment %} <div class="user-panel">
+				<a href="{% url 'login' %}">Log-In</a>  /  <a href="#">Register</a>
+			</div> {% endcomment %}
+
+			{% if user.is_authenticated %}
+			 	
+				 <div class="user-panel">
+					<a href="{% url 'logout' %}">{{user.username.upper}}</a> 
+				</div>
+				
+			{% else %}
+			<div class="user-panel">
+				<a href="{% url 'login' %}">Log-In</a>  /  <a href="{% url 'signup' %}">Sign-Up</a> /  <a href="{% url 'password_reset' %}">Password-Reset</a> 
+
+			</div>
+				
+				
+			
+			{% endif %}
+
+
+			<!-- responsive -->
+			<div class="nav-switch">
+				<i class="fa fa-bars"></i>
+			</div>
+			<!-- site menu -->
+			<nav class="main-menu">
+				<ul>
+				<form method="GET">
+					{% csrf_token %}
+						
+					{% for u in users %}
+					{% if user.is_authenticated and user.username == u.username %}
+					<li><a href="{% url 'profil' u.id %}">Profil</a></li>
+					{% endif %}
+					{% endfor %}
+					
+					<li><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="{% url 'review' %}">Games</a></li>
+					<li><a href="{% url 'categories' %}">Blog</a></li>
+					<li><a href="{% url 'community' %}">Forums</a></li>
+					<li><a href="{% url 'contact' %}">Contact</a></li>
+				</form>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- Header section end -->
+</body>
+</html>

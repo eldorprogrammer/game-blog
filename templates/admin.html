@@ -1,0 +1,122 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{% static 'js/admin.js' %}"></script>
+{% comment %} <!------ Include the above in your HEAD tag ----------> {% endcomment %}
+
+<br><br>
+
+{% for user1 in users %}
+{% if user1.user.is_staff  %}
+<div class="container">
+ <div class="well span8 offset2">
+        <div class="row-fluid user-row">
+            <div class="span1">
+                <img class="img-circle"
+                     src="{{user1.image.url}}"
+                     alt="User Pic">
+            </div>
+           {% if user1.user.is_staff %}
+            <div class="span10">
+                <strong>{{user1.user.username.upper}}</strong><br>
+                <span class="text-muted">{{user1.user.username.upper}} level: Administrator</span>
+            </div>
+            <div class="span1 dropdown-user" data-for=".cyruxx">
+                <i class="icon-chevron-down text-muted"></i>
+            </div>
+            {% endif %}
+            
+        </div>
+        <div class="row-fluid user-infos cyruxx">
+            <div class="span10 offset1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <img class="img-circle"
+                                     src="{{user1.image.url}}"
+                                     alt="User Pic">
+                            </div>
+                            <div class="span6">
+                                <strong>{{user1.user.username.upper}}</strong><br>
+                                <table class="table table-condensed table-responsive table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>{{user1.user.username.upper}} level:</td>
+                                        <td>Administrator</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>{{user1.user.date_joined.date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="panel-footer">
+                        
+                        {% if user.is_staff %}
+                        <span class="pull-right">
+                            <a href="{% url 'profilupdate' user1.id %}">
+                                <button class="btn btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="icon-edit icon-white"></i></button>
+                            </a>
+                            <a href="{% url 'profildelet' user1.id %}" >
+                                <button class="btn btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="icon-remove icon-white"></i></button>
+                            </a>
+                        </span>
+                        {% else %}
+                        <a  href="{% url 'sms'  %}">
+                            <button class="btn  btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="icon-envelope icon-white"></i></button> 
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+       
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+<a href="{% url 'index' %}">
+    <button type="button" class="btn btn-primary"><span class="bi bi-house-door"></span> Home Button</button>
+</a>
+
+
+
+
+</body>
+</html>

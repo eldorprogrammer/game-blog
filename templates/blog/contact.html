@@ -1,0 +1,124 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Game Warrior Template</title>
+	{% comment %} 
+		bu yerda css qismi bor edi
+	{% endcomment %}
+	
+
+</head>
+<body>
+	{% block mains %}
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	{% comment %} 
+	bu yerda header qismi bor
+	{% endcomment %}
+	{% include 'blog/header.html' %}
+
+
+	{% comment %} 
+	bu yerda news qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/news.html' %}
+
+
+	<!-- Page info section -->
+	<section class="page-info-section set-bg" data-setbg="{% static 'img/page-top-bg/5.jpg' %}">
+		<div class="pi-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-5 col-lg-6 text-white">
+						<h2>Contact us</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page info section -->
+
+
+	<!-- Page section -->
+	<section class="page-section spad contact-page">
+		<div class="container">
+			
+			<div class="map" id="map-canvas"></div>
+			<div class="row">
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					{% if adress %}
+					{% for adres in adress %}
+					<h4 class="comment-title">Contact us</h4>
+					<p>{{adres.body}}</p>
+					<div class="row">
+						<div class="col-md-9">
+							<ul class="contact-info-list">
+								<li><div class="cf-left">Address</div><div class="cf-right">{{adres.adress}}</div></li>
+								<li><div class="cf-left">Phone</div><div class="cf-right">{{adres.phone_num}}</div></li>
+								<li><div class="cf-left">E-mail</div><div class="cf-right">{{adres.email}}</div></li>
+							</ul>
+						</div>
+					</div>
+					{% endfor %}
+					{% endif %}
+					<div class="social-links">
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-dribbble"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="contact-form-warp">
+						<h4 class="comment-title">Leave a Reply</h4>
+						<form method="POST" class="comment-form"> {% csrf_token %}
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" name="name" placeholder="Name">
+								</div>
+								<div class="col-md-6">
+									<input type="email" name="email" placeholder="Email">
+								</div>
+								<div class="col-lg-12">
+									<input type="text" name="subject" placeholder="Subject">
+									<input type="text" name="message" placeholder="Message">
+									<button type="submit" class="site-btn btn-sm">Send</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				{% comment %} <div class="footer-top-bg">
+					<img src="{% static 'img/footer-top-bg.png' %}" alt="">
+				</div> {% endcomment %}
+			</div>
+		</div>
+	</section>
+	<!-- Page section end -->
+
+	{% include 'blog/footer.html' %}
+
+	{% endblock mains %}
+
+
+	{% comment %} 
+		bu yerda js qismi bor edi
+	{% endcomment %}
+
+
+	<!-- load for map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWTIlluowDL-X4HbYQt3aDw_oi2JP0Krc&sensor=false"></script>
+	<script src="{% static 'js/map.js' %}"></script>
+
+    </body>
+</html>

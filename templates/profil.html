@@ -1,0 +1,404 @@
+ 
+{% comment %} 
+    <form method="GET">
+        {% csrf_token %}
+        {{ form|crispy }}
+    {% if post.image  and user.username == post.user.username %}
+    <button type="submit"><a href="{% url 'profilupdate' post.id %}">Profilni Update qilish</a></button>
+    <br><br>
+    <button type="submit"><a href="{% url 'profildelet' post.id %}">Profilni Delet qilish</a></button>
+    <br><br>
+    {% else %}
+    <button type="submit"><a href="{% url 'rasm' %}">Profil yaratish</a></button>
+    <br><br>
+    {% endif %}
+    <button type="submit"> <a href="{% url 'sozlamalar' %}">Sozlamalar</a></button>
+   
+    </form> {% endcomment %}
+
+<!--Design by foolishdeveloper.com-->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% comment %} <link rel="stylesheet" href="{% static 'css/profil.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+        *{
+            list-style: none;
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        body{
+            background: #f5f6fa;
+        }
+        
+        .wrapper .sidebar{
+            background: rgb(5, 68, 104);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 225px;
+            height: 100%;
+            padding: 20px 0;
+            transition: all 0.5s ease;
+        }
+        
+        .wrapper .sidebar .profile{
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .wrapper .sidebar .profile img{
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        
+        .wrapper .sidebar .profile h3{
+            color: #ffffff;
+            margin: 10px 0 5px;
+        }
+        
+        .wrapper .sidebar .profile p{
+            color: rgb(206, 240, 253);
+            font-size: 14px;
+        }
+        
+        .wrapper .sidebar ul li a{
+            display: block;
+            padding: 13px 30px;
+            border-bottom: 1px solid #10558d;
+            color: rgb(241, 237, 237);
+            font-size: 16px;
+            position: relative;
+        }
+        
+        .wrapper .sidebar ul li a .icon{
+            color: #dee4ec;
+            width: 30px;
+            display: inline-block;
+        }
+        
+         
+        
+        .wrapper .sidebar ul li a:hover,
+        .wrapper .sidebar ul li a.active{
+            color: #0c7db1;
+        
+            background:white;
+            border-right: 2px solid rgb(5, 68, 104);
+        }
+        
+        .wrapper .sidebar ul li a:hover .icon,
+        .wrapper .sidebar ul li a.active .icon{
+            color: #0c7db1;
+        }
+        
+        .wrapper .sidebar ul li a:hover:before,
+        .wrapper .sidebar ul li a.active:before{
+            display: block;
+        }
+        
+        .wrapper .section{
+            width: calc(100% - 225px);
+            margin-left: 225px;
+            transition: all 0.5s ease;
+        }
+        
+        .wrapper .section .top_navbar{
+            background: rgb(7, 105, 185);
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+         
+        }
+        
+        .wrapper .section .top_navbar .hamburger a{
+            font-size: 28px;
+            color: #f4fbff;
+        }
+        
+        .wrapper .section .top_navbar .hamburger a:hover{
+            color: #a2ecff;
+        }
+        
+         .wrapper .section .container{
+            margin: 30px;
+            background: #fff;
+            padding: 50px;
+            line-height: 28px;
+        }
+        
+        body.active .wrapper .sidebar{
+            left: -225px;
+        }
+        
+        body.active .wrapper .section{
+            margin-left: 0;
+            width: 100%;
+        }
+        
+        
+        
+        
+        body{
+            background:#eee;
+        }
+        
+        .card{
+            border:none;
+        
+            position:relative;
+            overflow:hidden;
+            border-radius:8px;
+            cursor:pointer;
+        }
+        
+        .card:before{
+            
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:4px;
+            height:100%;
+            background-color:#E1BEE7;
+            transform:scaleY(1);
+            transition:all 0.5s;
+            transform-origin: bottom
+        }
+        
+        .card:after{
+            
+            content:"";
+            position:absolute;
+            left:0;
+            top:0;
+            width:4px;
+            height:100%;
+            background-color:#8E24AA;
+            transform:scaleY(0);
+            transition:all 0.5s;
+            transform-origin: bottom
+        }
+        
+        .card:hover::after{
+            transform:scaleY(1);
+        }
+        
+        
+        .fonts{
+            font-size:11px;
+        }
+        
+        .social-list{
+            display:flex;
+            list-style:none;
+            justify-content:center;
+            padding:0;
+        }
+        
+        .social-list li{
+            padding:10px;
+            color:#8E24AA;
+            font-size:19px;
+        }
+        
+        
+        .buttons button:nth-child(1){
+               border:1px solid #8E24AA !important;
+               color:#8E24AA;
+               height:40px;
+        }
+        
+        .buttons button:nth-child(1):hover{
+               border:1px solid #8E24AA !important;
+               color:#fff;
+               height:40px;
+               background-color:#8E24AA;
+        }
+        
+        .buttons button:nth-child(2){
+               border:1px solid #8E24AA !important;
+               background-color:#8E24AA;
+               color:#fff;
+                height:40px;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="wrapper">
+       <div class="section">
+		<div class="top_navbar">
+			<div class="hamburger">
+				<a href="#">
+					<i class="fas fa-bars"></i>
+				</a>
+			</div>
+		</div>
+
+
+
+
+		<div class="container">
+            <div class="container rounded mt-5 bg-white p-md-5">
+                <div class="h2 font-weight-bold">Users Table</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">User image</th> 
+                                <th scope="col">Familya</th> 
+                                <th scope="col">Email</th>                    
+                                <th scope="col">Subject</th>  
+                                <th scope="col">Message</th>                                      
+                            </tr>
+                        </thead>
+                        
+                        {% for custom1 in contacts %}
+                        <tbody>
+                            <tr class="bg-blue">            
+                                <td class="pt-2">
+                                    <img class="box" src=" {{custom1.profile_id.image.url}} "> 
+                                    <div class="pl-lg-5 pl-md-3 pl-1 name">{{custom1.profile_id.user.username.upper}}</div>
+                                </td>   
+                                <td class="pt-3 mt-1">{{custom1.profile_id.user.last_name}}</td>  
+                                <td class="pt-3 mt-1">{{custom1.profile_id.user.email}}</td>
+                             
+                                <td class="pt-3">{{custom1.subject}}</td>
+                                <td class="pt-3">{{custom1.massage|slice:30}}</td>
+                               
+                                
+                               <td>
+                                    <a href="{% url 'contactupdate' custom1.id %}" class="btn btn-primary btn-action mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                          </svg>
+        
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'contactdelet' custom1.id %}" class="btn btn-danger btn-action"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                      </svg></a>
+                                </td>
+                                
+                                <td>
+                                    <a href="{% url 'sms' %}" class="btn btn-primary btn-action mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                          </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr id="spacing-row">
+                                <td></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        
+                        
+                        
+                    </table>
+
+                    
+                    <button class="button" type="submit"><a href="{% url 'index' %}">home</a></button>
+
+                </div> 
+            </div>
+			
+		</div>
+
+
+
+
+	</div>
+        <div class="sidebar">
+               
+        
+            <div class="profile">
+                <a href="{% url 'profilupdate' post.id %}"><img src="{{post.image.url}}"></a>
+                <h3>{{user.username.upper}}</h3>
+                <p>{{post.user.familya}}</p>
+            </div>
+            <ul>
+                <li>
+                    <a href="{% url 'index' %}" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">My Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'table' post.id %}">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">People</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">Perfomance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">Development</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="item">Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'admin1' %}">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'sozlamalar' %}">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    
+    <script src="{% static 'profil.js' %}"></script>
+</body>
+</html>

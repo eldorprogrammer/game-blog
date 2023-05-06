@@ -1,0 +1,89 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+	<!-- Footer top section -->
+	<section class="footer-top-section">
+		<div class="container">
+			<div class="footer-top-bg">
+				<img src="{% static 'img/footer-top-bg.png' %}" alt="">
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="footer-logo text-white">
+						<img src="{% static 'img/footer-logo.png' %}" alt="">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-widget mb-5 mb-md-0">
+						<h4 class="fw-title">Latest Posts</h4>
+						
+						<div class="latest-blog">
+							{% if games1 %}
+							{% for post in games1 %}
+							
+							<div class="lb-item">
+								<div class="lb-thumb set-bg" data-setbg="{{post.image.url}}"></div>
+								<div class="lb-content">
+									<div class="lb-date">{{post.date}}</div>
+									<p>{{post.body|slice:100}} </p>
+									<a href="#" class="lb-author">{{post.author}}</a>
+								</div>
+								
+							</div>
+							{% endfor %}
+						{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-widget">
+						<h4 class="fw-title">Top Comments</h4>
+						<div class="top-comment">
+							{% if comments %}
+							{% for comment in comments %}
+							<div class="tc-item">
+								<div class="tc-thumb set-bg" data-setbg="{{comment.image.url}}"></div>
+								<div class="tc-content">
+									<p><a href="#">{{comment.name}}</a> <span>on</span> {{comment.body|slice:80}}</p>
+									<div class="tc-date">{{comment.date}}</div>
+								</div>
+							</div>
+							{% endfor %}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer top section end -->
+
+    	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<ul class="footer-menu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="review.html">Games</a></li>
+				<li><a href="categories.html">Blog</a></li>
+				<li><a href="community.html">Forums</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+			<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+</body>
+</html>

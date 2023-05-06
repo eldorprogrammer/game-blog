@@ -1,0 +1,201 @@
+
+{% extends 'blog/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Game Warrior Template</title>
+	{% comment %} 
+	bu yerda css qismi bor edi
+	{% endcomment %}
+</head>
+<body>
+
+	{% block mains %}
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	{% include 'blog/header.html' %}
+	{% comment %} 
+	bu yerda header qismi bor edi
+	{% endcomment %}
+
+
+	{% include 'blog/news.html' %}
+	{% comment %} 
+	bu yerda news qismi bor edi
+	{% endcomment %}
+
+
+	{% comment %} <!-- Page info section -->
+	<section class="page-info-section set-bg" data-setbg=" {{ post.image.url }}">
+		<div class="pi-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-5 col-lg-6 text-white">
+						<h2>{{post.oyinNomi}}</h2>
+						<p>{{post.body}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page info section --> {% endcomment %}
+
+
+	<!-- Page section -->
+	<section class="page-section single-blog-page spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="blog-thumb set-bg" data-setbg="{{post.image.url}}">
+						<div class="cata new">new</div>
+						<form method='GET' class="rgi-extra">
+                            <div class="rgi-star"><a href="?like=like&id={{post.id}}"><i class="bi bi-star-fill"></i></a></div>
+                            <div class="rgi-heart"><img src="{% static 'img/icons/heart.png' %}" alt=""></div>
+                        </form>
+					</div>
+					<div class="blog-content">
+						<h3>{{post.oyinNomi}}</h3>
+						<a href="" class="meta-comment">{{post.like}} likes</a>
+						<p>{{post.body}}</p>
+						<p>Donec venenatis at eros sit amet aliquam. Donec vel orci efficitur, dictum nisl vitae, scelerisque nibh. Curabitur eget ipsum pulvinar nunc gravida interdum. Aenean lectus felis, rutrum non quam eu, accumsan semper ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut accumsan, mauris nec venenatis gravida, lacus est gravida augue, eu egestas lorem nisi nec nibh. Mauris luctus porttitor elit, ac efficitur nulla consectetur a. Pellentesque scelerisque pulvinar magna sit amet auctor. Fusce tincidunt convallis elit ante, nec ullamcorper ante rhoncus mollis. </p>
+					</div>
+					<div class="comment-warp">
+						<h4 class="comment-title">Top Coments</h4>
+						<ul class="comment-list">
+							<li>
+								<div class="comment">
+									<div class="comment-avator set-bg" data-setbg="{% static 'img/authors/1.jpg' %}"></div>
+									<div class="comment-content">
+										<h5>James Smith <span>June 21, 2018</span></h5>
+										<p>Donec venenatis at eros sit amet aliquam. Donec vel orci efficitur, dictum nisl vitae, scelerisque nibh. Curabitur eget ipsum pulvinar nunc gravida interdum. </p>
+										<a href="" class="reply">Reply</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="comment">
+									<div class="comment-avator set-bg" data-setbg="{% static 'img/authors/2.jpg' %}"></div>
+									<div class="comment-content">
+										<h5>James Smith <span>June 21, 2018</span></h5>
+										<p>Donec venenatis at eros sit amet aliquam. Donec vel orci efficitur, dictum nisl vitae, scelerisque nibh. Curabitur eget ipsum pulvinar nunc gravida interdum. </p>
+										<a href="" class="reply">Reply</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="comment-form-warp">
+						<h4 class="comment-title">Leave Your Comment</h4>
+						<form class="comment-form">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" placeholder="Name">
+								</div>
+								<div class="col-md-6">
+									<input type="email" placeholder="Email">
+								</div>
+								<div class="col-lg-12">
+									<input type="text" placeholder="Subject">
+									<textarea placeholder="Message"></textarea>
+									<button class="site-btn btn-sm">Send</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- sidebar -->
+				<div class="col-lg-4 col-md-7 sidebar pt-5 pt-lg-0">
+					<!-- widget -->
+					{% comment %} <div class="widget-item">
+						<form class="search-widget">
+							<input type="text" placeholder="Search">
+							<button><i class="fa fa-search"></i></button>
+						</form>
+					</div> {% endcomment %}
+					<!-- widget -->
+					<div class="widget-item">
+						<h4 class="widget-title">Latest Posts</h4>
+						<div class="latest-blog">
+
+							{% comment %} {% for game in post %} {% endcomment %}
+							<div class="lb-item">
+								<div class="lb-thumb set-bg" data-setbg="{{post.image.url}}"></div>
+								<div class="lb-content">
+									<div class="lb-date">{{post.date}}</div>
+									<p>{{post.body}}</p>
+									<a href="#" class="lb-author">{{post.oyinNomi}}</a>
+								</div>
+							</div>
+							{% comment %} {% endfor %} {% endcomment %}
+							
+
+
+						</div>
+					</div>
+					<!-- widget -->
+					<div class="widget-item">
+						<h4 class="widget-title">Top Comments</h4>
+						<div class="top-comment">
+
+							{% for comment in comments %}
+							<div class="tc-item">
+								<div class="tc-thumb set-bg" data-setbg="{{comment.image.url}}"></div>
+								<div class="tc-content">
+									<p><a href="#">{{comment.name}}</a> <span>on</span>{{comment.body}}</p>
+									<div class="tc-date">{{comment.date}}</div>
+								</div>
+							</div>
+							{% endfor %}
+							
+
+
+						</div>
+					</div>
+					<!-- widget -->
+					<div class="widget-item">
+						<div class="feature-item set-bg" data-setbg="{% static 'img/features/1.jpg' %}">
+							<span class="cata new">new</span>
+							<div class="fi-content text-white">
+								<h5><a href="#">Suspendisse ut justo tem por, rutrum</a></h5>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+								<a href="#" class="fi-comment">3 Comments</a>
+							</div>
+						</div>
+					</div>
+					<!-- widget -->
+					<div class="widget-item">
+						<div class="review-item">
+							<div class="review-cover set-bg" data-setbg="{% static 'img/review/1.jpg' %}">
+								<div class="score yellow">9.3</div>
+							</div>
+							<div class="review-text">
+								<h5>Assasin’’s Creed</h5>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page section end -->
+
+	{% include 'blog/footer.html' %}
+	{% comment %} 
+	bu yerda footer qismi bor edi
+	{% endcomment %}
+
+
+	{% comment %} 
+	bu yerda js qismi bor edi
+	{% endcomment %}
+	{% endblock mains %}
+    </body>
+</html>
+    
+</body>
+</html>

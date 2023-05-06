@@ -1,0 +1,34 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    	<!-- Latest news section -->
+	<div class="latest-news-section">
+		<div class="ln-title">Latest News</div>
+		<div class="news-ticker">
+			<div class="news-ticker-contant">
+				{% if categories %}
+				{% for category in categories %}
+				{% if category.title == "NEW" %}
+				{% comment %} <div class="nt-item"><span class="new"><a  href="{% url 'singleBlog' category.id  %}">{{category.title}}</a></span>{{category.body}}</div> {% endcomment %}
+				<div class="nt-item"><span class="new"><a  href="{% url 'singleBlog'%}">{{category.title}}</a></span>{{category.body}}</div>
+				{% elif category.title == "STRATEGY" %}
+				<div class="nt-item"><span class="strategy">{{category.title}}</span>{{category.body}}</div>
+				{% elif category.title == "RACING" %}
+				<div class="nt-item"><span class="racing">{{category.title}}</span>{{category.body}}</div>
+				{% endif %}
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- Latest news section end -->
+</body>
+</html>

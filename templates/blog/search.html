@@ -1,0 +1,156 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Game Warrior Template</title>
+	
+	{% comment %} 
+		bu yerda css qismi bor edi
+	{% endcomment %}
+
+</head>
+<body>
+
+	{% block mains %}
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+	{% comment %} 
+	bu yerda header qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/header.html' %}
+
+
+	
+	{% comment %} 
+	bu yerda news qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/news.html' %}
+	
+	
+	<!-- Page info section -->
+	<section class="page-info-section set-bg" data-setbg="{% static 'img/page-top-bg/1.jpg' %}">
+		<div class="pi-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-5 col-lg-6 text-white">
+						<h2>Video Gallery</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page info section -->
+
+
+	<!-- Page section -->
+	<section class="page-section recent-game-page spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="row">
+						
+						{% if games3 %}
+						{% for like in games3 %}
+						<div class="col-md-6">
+							<div class="recent-game-item">
+								<div class="rgi-thumb set-bg" data-setbg="{{like.image.url}}">
+									<form method="GET"  action="{% url 'category' like.id %}">
+										<button type="submit" class="cata racing">{{like.category}}</button>
+									</form>
+								</div>
+								<div class="rgi-content">
+									<h5>{{like.oyinNomi}}</h5>
+									<p>{{like.body|slice:100}}</p>
+									<a href="#" class="comment">{{like.like}} Comments</a>
+									<form method='GET' class="rgi-extra">
+										<div class="rgi-star"><a href="?like=like&id={{like.id}}"><i class="bi bi-star-fill"></i></a></div>
+										<div class="rgi-heart"><img src="{% static 'img/icons/heart.png' %}" alt=""></div>
+									</form>
+								</div>
+							</div>	
+						</div>
+						{% endfor %}
+						{% endif %}
+
+					</div>
+					<div class="site-pagination">
+						{% if page_obj.has_previous %}
+						<a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+						{% endif %}
+						<span class="active">{{page_obj.number}}</span>
+						{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+						{% endif %}
+
+					</div>
+				</div>
+				<!-- sidebar -->
+				<div class="col-lg-4 col-md-7 sidebar pt-5 pt-lg-0">
+					<!-- widget -->
+					<div class="widget-item">
+						<form method="GET" action="{% url 'search' %}" class="search-widget"> {% csrf_token %}
+							<input type="text" name="query" placeholder="Search">
+							<button><i class="fa fa-search"></i></button>
+						</form>
+					</div> 
+					<!-- widget -->
+					<div class="widget-item">
+						<h4 class="widget-title">Latest Posts</h4>
+						<div class="latest-blog">
+							{% if games1 %}
+							{% for post in games1 %}
+							<div class="lb-item">
+								<div class="lb-thumb set-bg" data-setbg="{{post.image.url}}"></div>
+								<div class="lb-content">
+									<div class="lb-date">{{post.date}}</div>
+									<p>{{post.body}}</p>
+									<a href="#" class="lb-author">{{post.author}}</a>
+								</div>
+							</div>
+							{% endfor %}
+							{% endif %}
+						</div>
+					</div>
+					<!-- widget -->
+					<div class="widget-item">
+						<h4 class="widget-title">Top Comments</h4>
+						<div class="top-comment">
+							{% if comments %}
+							{% for comment in comments %}
+							<div class="tc-item">
+								<div class="tc-thumb set-bg" data-setbg="{{comment.image.url}}"></div>
+								<div class="tc-content">
+									<p><a href="#">{{comment.author}}</a> <span>on</span>{{comment.body|slice:70}}</p>
+									<div class="tc-date">{{comment.date}}</div>
+								</div>
+							</div>
+							{% endfor %}
+							{% endif %}
+							
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Page section end -->
+
+	{% comment %} 
+	bu yerda footer qismi bor edi
+	{% endcomment %}
+
+	{% include 'blog/footer.html' %}
+
+	{% endblock mains %}
+
+
+	
+    </body>
+</html>
